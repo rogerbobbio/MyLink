@@ -1,0 +1,114 @@
+﻿@model MyLink.Models.UserRol
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>User Rol</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Companies.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Companies.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BasicJornal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BasicJornal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Buc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Buc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AccumulatedMobility)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AccumulatedMobility)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Dominical)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Dominical)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Holidays)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Holidays)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cts)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cts)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Reward)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Reward)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HourExtra60)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HourExtra60)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HourExtra100)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HourExtra100)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Scholarship)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Scholarship)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.UserRolId }, new { @class = "btn btn-warning" }) |
+    @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-success" })
+</p>

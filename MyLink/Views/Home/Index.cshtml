@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "System";
+}
+
+<div class="jumbotron">
+    <h1>E-Commerce</h1>
+    @if (Model != null && !string.IsNullOrEmpty(Model.Company.Logo))
+    {
+      <img src="@Url.Content(Model.Company.Logo)" alt="Image" style="width: 200px; height: 200px; max-width: 100%; height: auto;" />
+    }
+</div>

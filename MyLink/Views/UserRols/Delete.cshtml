@@ -1,0 +1,124 @@
+﻿@model MyLink.Models.UserRol
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>User Rol</h4>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Companies.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Companies.Name)
+        </dd>
+
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BasicJornal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BasicJornal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Buc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Buc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AccumulatedMobility)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AccumulatedMobility)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Dominical)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Dominical)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Holidays)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Holidays)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cts)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cts)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Reward)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Reward)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HourExtra60)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HourExtra60)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HourExtra100)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HourExtra100)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Scholarship)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Scholarship)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-primary" /> |
+            @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-success" })
+        </div>
+    }
+</div>

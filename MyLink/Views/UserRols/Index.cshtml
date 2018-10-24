@@ -1,0 +1,105 @@
+﻿@model IEnumerable<MyLink.Models.UserRol>
+
+@{
+    ViewBag.Title = "User Rol";
+}
+
+<h2>User Rol</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", new { }, new { @class = "btn btn-primary" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @if (User.IsInRole("Admin"))
+            {
+                @Html.DisplayNameFor(model => model.Companies.Name)
+            }
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BasicJornal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Buc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AccumulatedMobility)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Dominical)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Holidays)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cts)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Reward)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HourExtra60)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HourExtra100)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Scholarship)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @if (User.IsInRole("Admin"))
+            {
+                @Html.DisplayFor(modelItem => item.Companies.Name)
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BasicJornal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Buc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AccumulatedMobility)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Dominical)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Holidays)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cts)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Reward)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HourExtra60)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HourExtra100)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Scholarship)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.UserRolId }, new { @class = "btn btn-warning" }) |
+            @Html.ActionLink("Details", "Details", new { id = item.UserRolId }, new { @class = "btn btn-info" }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.UserRolId }, new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>

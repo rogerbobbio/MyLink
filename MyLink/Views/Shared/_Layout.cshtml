@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("My Links", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Departments", "Index", "Departments")</li>
+                                <li>@Html.ActionLink("Cities", "Index", "Cities")</li>
+                                <li>@Html.ActionLink("Companies", "Index", "Companies")</li>
+                                <li>@Html.ActionLink("Project State", "Index", "ProjectStates")</li>
+                                <li>@Html.ActionLink("Order State", "Index", "OrderStates")</li>                                
+                                <li>@Html.ActionLink("Orders", "Index", "Orders")</li>
+                </ul>
+                        </li>
+                    }
+                    @if (User.IsInRole("Admin") || User.IsInRole("User"))
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Mantenimientos<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Sistema de Pensiones", "Index", "PensionSystems")</li>
+                                <li>@Html.ActionLink("Roles de Usuarios", "Index", "UserRols")</li>
+                                <li>@Html.ActionLink("Usuarios", "Index", "Users")</li>
+                                <li>@Html.ActionLink("Impuestos", "Index", "Taxes")</li>
+                                <li>@Html.ActionLink("Clientes", "Index", "Customers")</li>
+                                <li>@Html.ActionLink("Proveedores", "Index", "Suppliers")</li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Proyectos<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Proyectos", "Index", "Projects")</li>
+                                <li>@Html.ActionLink("Presupuestos", "Index", "Budgets")</li>
+                                <li>@Html.ActionLink("Sobrecostos", "Index", "Overruns")</li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Inventario<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Categorias de Productos", "Index", "ProductCategories")</li>
+                                <li>@Html.ActionLink("Almacenes", "Index", "Warehouses")</li>
+                                <li>@Html.ActionLink("Productos", "Index", "Products")</li>
+                                <li>@Html.ActionLink("Cotizaciones", "Index", "Quotes")</li>
+                            </ul>
+                        </li>
+                    }
+                </ul>
+
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+        <p>&copy; @DateTime.Now.Year - ECommmerce Application</p>
+        @Html.ActionLink("About", "About", "Home")
+        @Html.ActionLink("Contact", "Contact", "Home")
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
