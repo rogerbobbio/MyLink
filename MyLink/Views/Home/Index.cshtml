@@ -3,9 +3,11 @@
 }
 
 <div class="jumbotron">
-    <h1>E-Commerce</h1>
-    @if (Model != null && !string.IsNullOrEmpty(Model.Company.Logo))
+    <h1>My Personal Links</h1>    
+    <p>
+        @if (User.IsInRole("Admin"))
     {
-      <img src="@Url.Content(Model.Company.Logo)" alt="Image" style="width: 200px; height: 200px; max-width: 100%; height: auto;" />
+            @Html.ActionLink("Links", "Index", "Links", null, new {@class = "btn btn-primary btn-lg"})
     }
+    </p>
 </div>

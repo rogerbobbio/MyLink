@@ -1,4 +1,4 @@
-﻿@model MyLink.Models.UserRol
+﻿@model MyLink.Models.Language
 
 @{
     ViewBag.Title = "Details";
@@ -7,7 +7,7 @@
 <h2>Details</h2>
 
 <div>
-    <h4>User Rol</h4>
+    <h4>Language</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -17,9 +17,10 @@
         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
+
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.UserRolId }, new { @class = "btn btn-warning" }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.LanguageId }, new { @class = "btn btn-warning" }) |
     @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-success" })
 </p>

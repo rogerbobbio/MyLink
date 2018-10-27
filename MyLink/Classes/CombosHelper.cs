@@ -28,8 +28,22 @@ namespace MyLink.Classes
             var userRol = db.UserRols.ToList();
             userRol.Add(new UserRol { UserRolId = 0, Name = "[Seleciona un Rol...]" });
             return userRol.OrderBy(d => d.Name).ToList();
-        }              
-        
+        }
+
+        public static List<Language> GetLanguages()
+        {
+            var language = db.Languages.ToList();
+            language.Add(new Language { LanguageId = 0, Name = "[Seleciona un Idioma...]" });
+            return language.OrderBy(d => d.Name).ToList();
+        }
+
+        public static List<LinkCategory> GetLinkCategory()
+        {
+            var linkCategorie = db.LinkCategories.ToList();
+            linkCategorie.Add(new LinkCategory { LinkCategoryId = 0, Name = "[Seleciona una Categoria...]" });
+            return linkCategorie.OrderBy(d => d.Name).ToList();
+        }
+
         public void Dispose()
         {
             db.Dispose();

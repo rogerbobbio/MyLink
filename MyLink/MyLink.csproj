@@ -220,6 +220,9 @@
     <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\GenericController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LanguagesController.cs" />
+    <Compile Include="Controllers\LinkCategoriesController.cs" />
+    <Compile Include="Controllers\LinksController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\UserRolsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -230,6 +233,9 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Department.cs" />
+    <Compile Include="Models\Language.cs" />
+    <Compile Include="Models\Link.cs" />
+    <Compile Include="Models\LinkCategory.cs" />
     <Compile Include="Models\MyLinkContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -329,6 +335,21 @@
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Languages\Create.cshtml" />
+    <Content Include="Views\Languages\Delete.cshtml" />
+    <Content Include="Views\Languages\Details.cshtml" />
+    <Content Include="Views\Languages\Edit.cshtml" />
+    <Content Include="Views\Languages\Index.cshtml" />
+    <Content Include="Views\LinkCategories\Create.cshtml" />
+    <Content Include="Views\LinkCategories\Delete.cshtml" />
+    <Content Include="Views\LinkCategories\Details.cshtml" />
+    <Content Include="Views\LinkCategories\Edit.cshtml" />
+    <Content Include="Views\LinkCategories\Index.cshtml" />
+    <Content Include="Views\Links\Create.cshtml" />
+    <Content Include="Views\Links\Delete.cshtml" />
+    <Content Include="Views\Links\Details.cshtml" />
+    <Content Include="Views\Links\Edit.cshtml" />
+    <Content Include="Views\Links\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

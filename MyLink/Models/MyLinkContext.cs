@@ -25,5 +25,11 @@ namespace MyLink.Models
         public DbSet<UserRol> UserRols { get; set; }
 
         public DbSet<User> Users { get; set; }        
+
+        public System.Data.Entity.DbSet<MyLink.Models.Language> Languages { get; set; }
+
+        public System.Data.Entity.DbSet<MyLink.Models.LinkCategory> LinkCategories { get; set; }
+
+        public System.Data.Entity.DbSet<MyLink.Models.Link> Links { get; set; }
     }
 }
