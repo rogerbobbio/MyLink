@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 using MyLink.Classes;
 using MyLink.Models;
@@ -22,24 +25,34 @@ namespace MyLink.Controllers
         {
             ViewBag.LanguageId = new SelectList(CombosHelper.GetLanguages(), "LanguageId", "Name");
             ViewBag.LinkCategoryId = new SelectList(CombosHelper.GetLinkCategory(), "LinkCategoryId", "Name");
-            ViewBag.LinkCategoryIdSelected = linkCategoryId;
+
+            ViewBag.LinkCategorySelectedId = linkCategoryId;
+            ViewBag.LanguageSelectedId = languageId;
+            ViewBag.SeriesSelectedFlag = seriesFlag;
+            ViewBag.TopSelectedFlag = topFlag;
+            ViewBag.OldSelectedFlag = oldFlag;
+            ViewBag.SubtitleSelectedFlag = subtitleFlag;
+            ViewBag.PendingSelectedFlag = pendingFlag;
+            ViewBag.RankingSelected = ranking;
+            ViewBag.UrlSelected = url;
+            ViewBag.DescriptionSelected = description;
 
             if (ranking == string.Empty) ranking = null;
-            if (Convert.ToBoolean(pendingFlag) == false) pendingFlag = null;
-            if (Convert.ToBoolean(subtitleFlag) == false) subtitleFlag = null;
-            if (Convert.ToBoolean(oldFlag) == false) oldFlag = null;
-            if (Convert.ToBoolean(topFlag) == false) topFlag = null;
-            if (Convert.ToBoolean(seriesFlag) == false) seriesFlag = null;
+            if (System.Convert.ToBoolean(pendingFlag) == false) pendingFlag = null;
+            if (System.Convert.ToBoolean(subtitleFlag) == false) subtitleFlag = null;
+            if (System.Convert.ToBoolean(oldFlag) == false) oldFlag = null;
+            if (System.Convert.ToBoolean(topFlag) == false) topFlag = null;
+            if (System.Convert.ToBoolean(seriesFlag) == false) seriesFlag = null;
 
-            if (Convert.ToInt32(languageId) == 0) languageId = null;
-            if (Convert.ToInt32(linkCategoryId) == 0) linkCategoryId = null;
+            if (System.Convert.ToInt32(languageId) == 0) languageId = null;
+            if (System.Convert.ToInt32(linkCategoryId) == 0) linkCategoryId = null;
 
-            var rankingParameter = Convert.ToInt32(ranking);
-            var pendingParameter = Convert.ToBoolean(pendingFlag);
-            var subtitleParameter = Convert.ToBoolean(subtitleFlag);
-            var oldParameter = Convert.ToBoolean(oldFlag);
-            var topParameter = Convert.ToBoolean(topFlag);
-            var seriesParameter = Convert.ToBoolean(seriesFlag);
+            var rankingParameter = System.Convert.ToInt32(ranking);
+            var pendingParameter = System.Convert.ToBoolean(pendingFlag);
+            var subtitleParameter = System.Convert.ToBoolean(subtitleFlag);
+            var oldParameter = System.Convert.ToBoolean(oldFlag);
+            var topParameter = System.Convert.ToBoolean(topFlag);
+            var seriesParameter = System.Convert.ToBoolean(seriesFlag);
 
             page = (page ?? 1);
             var links = db.Links.Include(l => l.Language).Include(l => l.LinkCategory);
@@ -54,6 +67,8 @@ namespace MyLink.Controllers
                                         && (c.LanguageId == languageId || languageId == null)
                                         && (c.LinkCategoryId == linkCategoryId || linkCategoryId == null)
                                       ).OrderBy(c => c.Url).ThenBy(c => c.Description);
+
+            ViewBag.RecordCount = links.ToList().Count;
 
             return View(links.ToPagedList((int)page, 10));
         }

@@ -4,10 +4,25 @@
 
 <div class="jumbotron">
     <h1>My Personal Links</h1>    
-    <p>
-        @if (User.IsInRole("Admin"))
-    {
-            @Html.ActionLink("Links", "Index", "Links", null, new {@class = "btn btn-primary btn-lg"})
-    }
-    </p>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-15">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-bookmark"></span>Menu
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-10 col-md-10">
+                            <a href="Links" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-link"></span> <br />Links</a>                            
+                        </div>                        
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
