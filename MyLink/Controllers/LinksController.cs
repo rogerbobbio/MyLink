@@ -16,12 +16,11 @@ namespace MyLink.Controllers
     {
         private MyLinkContext db = new MyLinkContext();
         
-        public ActionResult Index(string description, string url, string ranking, string orderBy, string pendingFlag, string subtitleFlag, 
+        public ActionResult Index(string description, string url, string ranking, string sortOrder, string pendingFlag, string subtitleFlag, 
             string oldFlag, string topFlag, string seriesFlag, int? languageId, int? linkCategoryId, int? page = null)
         {
             ViewBag.LanguageId = new SelectList(CombosHelper.GetLanguages(), "LanguageId", "Name");
             ViewBag.LinkCategoryId = new SelectList(CombosHelper.GetLinkCategory(), "LinkCategoryId", "Name");
-
             ViewBag.LinkCategorySelectedId = linkCategoryId;
             ViewBag.LanguageSelectedId = languageId;
             ViewBag.SeriesSelectedFlag = seriesFlag;
@@ -32,7 +31,6 @@ namespace MyLink.Controllers
             ViewBag.RankingSelected = ranking;
             ViewBag.UrlSelected = url;
             ViewBag.DescriptionSelected = description;
-            ViewBag.OrderBy = orderBy;
 
             if (ranking == string.Empty) ranking = null;
             if (Convert.ToBoolean(pendingFlag) == false) pendingFlag = null;
@@ -53,7 +51,6 @@ namespace MyLink.Controllers
 
             page = (page ?? 1);
             var links = db.Links.Include(l => l.Language).Include(l => l.LinkCategory);
-            if (orderBy == "")
                 links = db.Links.Where(c => (c.Description.Contains(description) || description == null)
                                         && (c.Url.Contains(url) || url == null)
                                         && (c.Ranking.Equals(rankingParameter) || ranking == null)
@@ -64,34 +61,29 @@ namespace MyLink.Controllers
                                         && (c.Series.Equals(seriesParameter) || seriesFlag == null)
                                         && (c.LanguageId == languageId || languageId == null)
                                         && (c.LinkCategoryId == linkCategoryId || linkCategoryId == null)
-                                      ).OrderBy(c => c.Url).ThenBy(c => c.Description);
-
-            if (orderBy == "Fecha")
-                links = db.Links.Where(c => (c.Description.Contains(description) || description == null)
-                                        && (c.Url.Contains(url) || url == null)
-                                        && (c.Ranking.Equals(rankingParameter) || ranking == null)
-                                        && (c.Pending.Equals(pendingParameter) || pendingFlag == null)
-                                        && (c.Subtitle.Equals(subtitleParameter) || subtitleFlag == null)
-                                        && (c.Old.Equals(oldParameter) || oldFlag == null)
-                                        && (c.Top.Equals(topParameter) || topFlag == null)
-                                        && (c.Series.Equals(seriesParameter) || seriesFlag == null)
-                                        && (c.LanguageId == languageId || languageId == null)
-                                        && (c.LinkCategoryId == linkCategoryId || linkCategoryId == null)
-                                      ).OrderByDescending(c => c.CreationDate).ThenBy(c => c.Description);
-            if (orderBy == "Descripcion")
-                links = db.Links.Where(c => (c.Description.Contains(description) || description == null)
-                                        && (c.Url.Contains(url) || url == null)
-                                        && (c.Ranking.Equals(rankingParameter) || ranking == null)
-                                        && (c.Pending.Equals(pendingParameter) || pendingFlag == null)
-                                        && (c.Subtitle.Equals(subtitleParameter) || subtitleFlag == null)
-                                        && (c.Old.Equals(oldParameter) || oldFlag == null)
-                                        && (c.Top.Equals(topParameter) || topFlag == null)
-                                        && (c.Series.Equals(seriesParameter) || seriesFlag == null)
-                                        && (c.LanguageId == languageId || languageId == null)
-                                        && (c.LinkCategoryId == linkCategoryId || linkCategoryId == null)
-                                      ).OrderBy(c => c.Description).ThenBy(c => c.LinkCategory);
+                                    );
 
             ViewBag.RecordCount = links.ToList().Count;
+
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "description" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            switch (sortOrder)
+            {
+                case "description":
+                    links = links.OrderByDescending(s => s.Description);
+                    break;
+                case "Date":
+                    links = links.OrderBy(s => s.CreationDate);
+                    break;
+                case "date_desc":
+                    links = links.OrderByDescending(s => s.CreationDate);
+                    break;
+                default:
+                    links = links.OrderBy(s => s.Description);
+                    break;
+            }
+
 
             return View(links.ToPagedList((int)page, 10));
         }
