@@ -16,9 +16,8 @@ namespace MyLink.Controllers
     {
         private MyLinkContext db = new MyLinkContext();
         
-        public ActionResult Index(string description, string url, string ranking, string pendingFlag, string subtitleFlag, string oldFlag, string topFlag, string seriesFlag,
-            int? languageId, int? linkCategoryId,
-            int? page = null)
+        public ActionResult Index(string description, string url, string ranking, string orderBy, string pendingFlag, string subtitleFlag, 
+            string oldFlag, string topFlag, string seriesFlag, int? languageId, int? linkCategoryId, int? page = null)
         {
             ViewBag.LanguageId = new SelectList(CombosHelper.GetLanguages(), "LanguageId", "Name");
             ViewBag.LinkCategoryId = new SelectList(CombosHelper.GetLinkCategory(), "LinkCategoryId", "Name");
@@ -33,27 +32,29 @@ namespace MyLink.Controllers
             ViewBag.RankingSelected = ranking;
             ViewBag.UrlSelected = url;
             ViewBag.DescriptionSelected = description;
+            ViewBag.OrderBy = orderBy;
 
             if (ranking == string.Empty) ranking = null;
-            if (System.Convert.ToBoolean(pendingFlag) == false) pendingFlag = null;
-            if (System.Convert.ToBoolean(subtitleFlag) == false) subtitleFlag = null;
-            if (System.Convert.ToBoolean(oldFlag) == false) oldFlag = null;
-            if (System.Convert.ToBoolean(topFlag) == false) topFlag = null;
-            if (System.Convert.ToBoolean(seriesFlag) == false) seriesFlag = null;
+            if (Convert.ToBoolean(pendingFlag) == false) pendingFlag = null;
+            if (Convert.ToBoolean(subtitleFlag) == false) subtitleFlag = null;
+            if (Convert.ToBoolean(oldFlag) == false) oldFlag = null;
+            if (Convert.ToBoolean(topFlag) == false) topFlag = null;
+            if (Convert.ToBoolean(seriesFlag) == false) seriesFlag = null;
 
-            if (System.Convert.ToInt32(languageId) == 0) languageId = null;
-            if (System.Convert.ToInt32(linkCategoryId) == 0) linkCategoryId = null;
+            if (Convert.ToInt32(languageId) == 0) languageId = null;
+            if (Convert.ToInt32(linkCategoryId) == 0) linkCategoryId = null;
 
-            var rankingParameter = System.Convert.ToInt32(ranking);
-            var pendingParameter = System.Convert.ToBoolean(pendingFlag);
-            var subtitleParameter = System.Convert.ToBoolean(subtitleFlag);
-            var oldParameter = System.Convert.ToBoolean(oldFlag);
-            var topParameter = System.Convert.ToBoolean(topFlag);
-            var seriesParameter = System.Convert.ToBoolean(seriesFlag);
+            var rankingParameter = Convert.ToInt32(ranking);
+            var pendingParameter = Convert.ToBoolean(pendingFlag);
+            var subtitleParameter = Convert.ToBoolean(subtitleFlag);
+            var oldParameter = Convert.ToBoolean(oldFlag);
+            var topParameter = Convert.ToBoolean(topFlag);
+            var seriesParameter = Convert.ToBoolean(seriesFlag);
 
             page = (page ?? 1);
             var links = db.Links.Include(l => l.Language).Include(l => l.LinkCategory);
-            links = db.Links.Where(c => (c.Description.Contains(description) || description == null)
+            if (orderBy == "")
+                links = db.Links.Where(c => (c.Description.Contains(description) || description == null)
                                         && (c.Url.Contains(url) || url == null)
                                         && (c.Ranking.Equals(rankingParameter) || ranking == null)
                                         && (c.Pending.Equals(pendingParameter) || pendingFlag == null)
@@ -64,6 +65,31 @@ namespace MyLink.Controllers
                                         && (c.LanguageId == languageId || languageId == null)
                                         && (c.LinkCategoryId == linkCategoryId || linkCategoryId == null)
                                       ).OrderBy(c => c.Url).ThenBy(c => c.Description);
+
+            if (orderBy == "Fecha")
+                links = db.Links.Where(c => (c.Description.Contains(description) || description == null)
+                                        && (c.Url.Contains(url) || url == null)
+                                        && (c.Ranking.Equals(rankingParameter) || ranking == null)
+                                        && (c.Pending.Equals(pendingParameter) || pendingFlag == null)
+                                        && (c.Subtitle.Equals(subtitleParameter) || subtitleFlag == null)
+                                        && (c.Old.Equals(oldParameter) || oldFlag == null)
+                                        && (c.Top.Equals(topParameter) || topFlag == null)
+                                        && (c.Series.Equals(seriesParameter) || seriesFlag == null)
+                                        && (c.LanguageId == languageId || languageId == null)
+                                        && (c.LinkCategoryId == linkCategoryId || linkCategoryId == null)
+                                      ).OrderByDescending(c => c.CreationDate).ThenBy(c => c.Description);
+            if (orderBy == "Descripcion")
+                links = db.Links.Where(c => (c.Description.Contains(description) || description == null)
+                                        && (c.Url.Contains(url) || url == null)
+                                        && (c.Ranking.Equals(rankingParameter) || ranking == null)
+                                        && (c.Pending.Equals(pendingParameter) || pendingFlag == null)
+                                        && (c.Subtitle.Equals(subtitleParameter) || subtitleFlag == null)
+                                        && (c.Old.Equals(oldParameter) || oldFlag == null)
+                                        && (c.Top.Equals(topParameter) || topFlag == null)
+                                        && (c.Series.Equals(seriesParameter) || seriesFlag == null)
+                                        && (c.LanguageId == languageId || languageId == null)
+                                        && (c.LinkCategoryId == linkCategoryId || linkCategoryId == null)
+                                      ).OrderBy(c => c.Description).ThenBy(c => c.LinkCategory);
 
             ViewBag.RecordCount = links.ToList().Count;
 
@@ -125,13 +151,13 @@ namespace MyLink.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.LanguageId = new SelectList(db.Languages, "LanguageId", "Name");
+            ViewBag.LanguageId = new SelectList(db.Languages, "LanguageId", "Name", 6);
             ViewBag.LinkCategoryId = new SelectList(db.LinkCategories, "LinkCategoryId", "Name");
 
             var linkModel = new Link
             {
                 Ranking = 2,
-                CreationDate = DateTime.Now,
+                CreationDate = DateTime.Now,                
             };
             return View(linkModel);
         }
