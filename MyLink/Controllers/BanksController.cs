@@ -2,19 +2,19 @@
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using MyLink.Classes;
 using MyLink.Models;
+using MyLink.Classes;
 
 namespace MyLink.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class DepartmentsController : Controller
+    public class BanksController : Controller
     {
         private MyLinkContext db = new MyLinkContext();
 
         public ActionResult Index()
         {
-            return View(db.Departments.ToList());
+            return View(db.Banks.ToList());
         }
 
         public ActionResult Details(int? id)
@@ -23,12 +23,12 @@ namespace MyLink.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var department = db.Departments.Find(id);
-            if (department == null)
+            Bank bank = db.Banks.Find(id);
+            if (bank == null)
             {
                 return HttpNotFound();
             }
-            return View(department);
+            return View(bank);
         }
 
         public ActionResult Create()
@@ -38,11 +38,11 @@ namespace MyLink.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Department department)
+        public ActionResult Create(Bank bank)
         {
             if (ModelState.IsValid)
             {
-                db.Departments.Add(department);
+                db.Banks.Add(bank);
                 var responseSave = DBHelper.SaveChanges(db);
                 if (responseSave.Succeeded)
                 {
@@ -51,7 +51,7 @@ namespace MyLink.Controllers
                 ModelState.AddModelError(string.Empty, responseSave.Message);
             }
 
-            return View(department);
+            return View(bank);
         }
 
         public ActionResult Edit(int? id)
@@ -60,21 +60,21 @@ namespace MyLink.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var department = db.Departments.Find(id);
-            if (department == null)
+            Bank bank = db.Banks.Find(id);
+            if (bank == null)
             {
                 return HttpNotFound();
             }
-            return View(department);
+            return View(bank);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Department department)
+        public ActionResult Edit(Bank bank)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(department).State = EntityState.Modified;
+                db.Entry(bank).State = EntityState.Modified;
                 var responseSave = DBHelper.SaveChanges(db);
                 if (responseSave.Succeeded)
                 {
@@ -82,7 +82,7 @@ namespace MyLink.Controllers
                 }
                 ModelState.AddModelError(string.Empty, responseSave.Message);
             }
-            return View(department);
+            return View(bank);
         }
 
         public ActionResult Delete(int? id)
@@ -91,27 +91,27 @@ namespace MyLink.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var department = db.Departments.Find(id);
-            if (department == null)
+            Bank bank = db.Banks.Find(id);
+            if (bank == null)
             {
                 return HttpNotFound();
             }
-            return View(department);
+            return View(bank);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            var department = db.Departments.Find(id);
-            db.Departments.Remove(department);
+            Bank bank = db.Banks.Find(id);
+            db.Banks.Remove(bank);
             var responseSave = DBHelper.SaveChanges(db);
             if (responseSave.Succeeded)
             {
                 return RedirectToAction("Index");
             }
             ModelState.AddModelError(string.Empty, responseSave.Message);
-            return View(department);
+            return View(bank);
         }
 
         protected override void Dispose(bool disposing)

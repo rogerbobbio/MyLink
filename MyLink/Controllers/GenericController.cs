@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using MyLink.Models;
+using System.Data.Entity;
 
 namespace MyLink.Controllers
 {
@@ -14,6 +15,13 @@ namespace MyLink.Controllers
             var cities = db.Cities.Where(c => c.DepartmentId == departmentId);
             return Json(cities);
         }        
+
+        public JsonResult GetProjects(int projectId)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            var projects = db.Projects.Include(c => c.Bank).Where(c => c.ProjectId == projectId);            
+            return Json(projects);
+        }
 
         protected override void Dispose(bool disposing)
         {

@@ -16,6 +16,20 @@ namespace MyLink.Classes
             return department.OrderBy(d => d.Name).ToList();
         }
 
+        public static List<Bank> GetBanks()
+        {
+            var bank = db.Banks.ToList();
+            bank.Add(new Bank { BankId = 0, Name = "[Select a Bank...]" });
+            return bank.OrderBy(d => d.Name).ToList();
+        }
+
+        public static List<Project> GetProjects()
+        {
+            var project = db.Projects.ToList();
+            project.Add(new Project { ProjectId = 0, Name = "[Seleccionar Proyecto...]" });
+            return project.OrderBy(d => d.Name).ToList();
+        }
+
         public static List<City> GetCities(int departmentId)
         {
             var city = db.Cities.Where(c => c.DepartmentId == departmentId).ToList();

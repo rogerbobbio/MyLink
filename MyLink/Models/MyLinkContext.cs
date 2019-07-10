@@ -26,10 +26,16 @@ namespace MyLink.Models
 
         public DbSet<User> Users { get; set; }        
 
-        public System.Data.Entity.DbSet<MyLink.Models.Language> Languages { get; set; }
+        public DbSet<Language> Languages { get; set; }
 
-        public System.Data.Entity.DbSet<MyLink.Models.LinkCategory> LinkCategories { get; set; }
+        public DbSet<LinkCategory> LinkCategories { get; set; }
 
-        public System.Data.Entity.DbSet<MyLink.Models.Link> Links { get; set; }
+        public DbSet<Link> Links { get; set; }
+
+        public DbSet<Project> Projects { get; set; }
+
+        public System.Data.Entity.DbSet<MyLink.Models.Bank> Banks { get; set; }
+
+        public System.Data.Entity.DbSet<MyLink.Models.Payment> Payments { get; set; }
     }
 }

@@ -17,7 +17,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("My Links", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -32,6 +32,13 @@
                                 <li>@Html.ActionLink("Usuarios", "Index", "Users")</li>
                                 <li>@Html.ActionLink("Idioma", "Index", "Languages")</li>
                                 <li>@Html.ActionLink("Link Categorias", "Index", "LinkCategories")</li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pagos<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Banco", "Index", "Banks")</li>
+                                <li>@Html.ActionLink("Proyecto", "Index", "Projects")</li>
                             </ul>
                         </li>
                     }

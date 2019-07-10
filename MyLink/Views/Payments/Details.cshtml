@@ -1,0 +1,77 @@
+﻿@model MyLink.Models.Payment
+
+@{
+    ViewBag.Title = "Detalle de Pago";
+}
+
+<h2>Detalle de Pago</h2>
+
+<div>
+    <h4>Pago</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Project.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Project.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bank)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bank)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Account)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Account)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PersonCharge)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PersonCharge)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Amount)
+        </dd>        
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Voucher)
+        </dt>
+
+        <dd>
+            @if (!string.IsNullOrEmpty(Model.Voucher))
+            {
+                <img src="@Url.Content(Model.Voucher)" alt="Image" style="width: 150px; height: 150px; max-width: 100%; height: auto;" />
+            }
+        </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreationDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PaymentId }, new { @class = "btn btn-warning" }) |
+    @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-success" })
+</p>

@@ -1,0 +1,77 @@
+﻿@model PagedList.IPagedList<MyLink.Models.Project>
+@using PagedList.Mvc
+
+@{
+    ViewBag.Title = "Proyectos";
+}
+
+<h2>Proyectos</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", new { }, new { @class = "btn btn-primary" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().PersonCharge)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Bank.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Account)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().InterbankCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Salary)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+                @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+                @Html.DisplayFor(modelItem => item.PersonCharge)
+        </td>
+        <td>
+                @Html.DisplayFor(modelItem => item.Bank.Name)
+        </td>
+        <td>
+                @Html.DisplayFor(modelItem => item.Account)
+        </td>
+        <td>
+                @Html.DisplayFor(modelItem => item.InterbankCode)
+        </td>
+        <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Salary)
+        </td>
+        <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ProjectId }, new { @class = "btn btn-warning" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ProjectId }, new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>
+Página: @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber), de: @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index", new
+{
+    page,
+    sortOrder = ViewBag.CurrentSort,
+    currentFilter = ViewBag.CurrentFilter
+}))

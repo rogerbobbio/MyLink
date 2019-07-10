@@ -59,7 +59,6 @@ namespace MyLink.Controllers
             return View(city);
         }
 
-        // GET: Cities/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
