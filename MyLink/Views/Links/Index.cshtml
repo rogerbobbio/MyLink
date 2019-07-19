@@ -9,45 +9,19 @@
 @using (Html.BeginForm("Index", "Links", FormMethod.Get))
 {
     <div style="border-bottom:1px solid #bbb"><h1>Busqueda de Links</h1></div> 
-    <table style="border:0px; width:800px;">
+
+    <table class="table table-bordered">
+        <tbody>
         <tr>
-            <td>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.FirstOrDefault().Description)
-                <div class="editor-field">
-                    @Html.TextBox("description")
-                </div>                 
-                </div>                
-            </td>
-            <td>                
-                <div class="form-group">
-                    @Html.LabelFor(model => model.FirstOrDefault().Url)
-                <div class="editor-field">
-                    @Html.TextBox("url")
-                </div>
-                </div>
-            </td>
-            <td>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.FirstOrDefault().LanguageId, "Idioma", htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div>
-                        @Html.DropDownList("languageId", null, htmlAttributes: new { @class = "form-control" })
-                </div>
-                </div>
-            </td>
-            <td>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.FirstOrDefault().LinkCategoryId, "Categoria", htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div>
-                        @Html.DropDownList("linkCategoryId", null, htmlAttributes: new { @class = "form-control" })
-                </div>
-                </div>
-            </td>
-            <td>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.FirstOrDefault().Ranking)
-                    <div>
-                        <select class="form-control" id="exampleSelect1" name="ranking" style="width: 80px;">
+                <th scope="row">@Html.LabelFor(model => model.FirstOrDefault().Description)</th>
+                <td colspan="2">@Html.TextBox("description")</td>
+                <td><input name="SearchButton" type="submit" value="Buscar" class="btn btn-success" /></td>
+            </tr>
+            <tr>
+                <th scope="row">@Html.LabelFor(model => model.FirstOrDefault().Url)</th>
+                <td>@Html.TextBox("url")</td>
+                <th scope="row">@Html.LabelFor(model => model.FirstOrDefault().Ranking)</th>
+                <td><select class="form-control" id="exampleSelect1" name="ranking" style="width: 80px;">
                             <option></option>
                             <option>1</option>
                             <option>2</option>
@@ -55,47 +29,24 @@
                             <option>4</option>
                             <option>5</option>
                         </select>
-                </div>
-                </div>
-            </td>            
-            <td style="vertical-align:central;">                    
-                <input name="SearchButton" type="submit" value="Buscar" class="btn btn-success" />
             </td>
         </tr>
         <tr>
+                <th scope="row">@Html.LabelFor(model => model.FirstOrDefault().LanguageId, "Idioma")</th>
+                <td>@Html.DropDownList("languageId", null, htmlAttributes: new { @class = "form-control" })</td>
+                <th scope="row">@Html.LabelFor(model => model.FirstOrDefault().LinkCategoryId, "Categoria")</th>
+                <td>@Html.DropDownList("linkCategoryId", null, htmlAttributes: new { @class = "form-control" })</td>
         </tr>
         <tr>
-            <td>
-                <div class="form-check">
-                    @Html.LabelFor(model => model.FirstOrDefault().Pending)
-                    @Html.CheckBox("pendingFlag")
-                </div>
-            </td>
-            <td>
-                <div class="form-check">
-                    @Html.LabelFor(model => model.FirstOrDefault().Subtitle)
-                    @Html.CheckBox("subtitleFlag")
-                </div>
-            </td>
-            <td>
-                <div class="form-check">
-                    @Html.LabelFor(model => model.FirstOrDefault().Old)
-                    @Html.CheckBox("oldFlag")
-                </div>
-            </td>
-            <td>
-                <div class="form-check">
-                    @Html.LabelFor(model => model.FirstOrDefault().Top)
-                    @Html.CheckBox("topFlag")
-                </div>
-            </td>
-            <td>
-                <div class="form-check">
-                    @Html.LabelFor(model => model.FirstOrDefault().Series)
-                    @Html.CheckBox("seriesFlag")
-                </div>
+                <td colspan="4">
+                    <label class="checkbox-inline">@Html.LabelFor(model => model.FirstOrDefault().Pending)@Html.CheckBox("pendingFlag")</label>
+                    <label class="checkbox-inline">@Html.LabelFor(model => model.FirstOrDefault().Subtitle)@Html.CheckBox("subtitleFlag")</label>
+                    <label class="checkbox-inline">@Html.LabelFor(model => model.FirstOrDefault().Old)@Html.CheckBox("oldFlag")</label>
+                    <label class="checkbox-inline">@Html.LabelFor(model => model.FirstOrDefault().Top)@Html.CheckBox("topFlag")</label>
+                    <label class="checkbox-inline">@Html.LabelFor(model => model.FirstOrDefault().Series)@Html.CheckBox("seriesFlag")</label>
             </td>
         </tr>
+        </tbody>
     </table>
  }
 

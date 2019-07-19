@@ -16,7 +16,8 @@ namespace MyLink.Controllers
     {
         private MyLinkContext db = new MyLinkContext();
 
-        public ActionResult Index(string account, string personCharge, string bank, string providerFlag, string sortOrder, int? projectId, int? page = null)
+        public ActionResult Index(string account, string personCharge, string bank, string providerFlag, string sortOrder, string startDate, string endDate,
+                                  int? projectId, int? page = null)
         {
             ViewBag.BankId = new SelectList(CombosHelper.GetBanks(), "BankId", "Name");
             ViewBag.ProjectId = new SelectList(CombosHelper.GetProjects(), "ProjectId", "Name");
@@ -25,11 +26,34 @@ namespace MyLink.Controllers
             ViewBag.AccountSelected = account;
             ViewBag.BankSelected = bank;
             ViewBag.ProviderSelectedFlag = providerFlag;
+            ViewBag.StartDate = startDate;
+            ViewBag.EndDate = endDate;            
 
             if (Convert.ToInt32(projectId) == 0) projectId = null;            
             if (Convert.ToBoolean(providerFlag) == false) providerFlag = null;
 
             var providerParameter = Convert.ToBoolean(providerFlag);
+            var dtStartDate = DateTime.MinValue;
+            var dtEndDate = DateTime.MinValue;
+
+            startDate = startDate != null ? startDate.ToString() : "";
+            endDate = endDate != null ? endDate.ToString() : "";
+
+            if (startDate != string.Empty)
+            {
+                startDate = startDate + " 00:00:00";                
+                dtStartDate = Convert.ToDateTime(startDate);
+            }                
+            else
+                startDate = null;
+
+            if (endDate != string.Empty)
+            {
+                endDate = endDate + " 23:59:00";
+                dtEndDate = Convert.ToDateTime(endDate);
+            }                
+            else
+                endDate = null;
 
             page = (page ?? 1);
             var payments = db.Payments.Include(l => l.Project);
@@ -38,6 +62,8 @@ namespace MyLink.Controllers
                                     && (c.Bank.Contains(bank) || bank == null)
                                     && (c.ProjectId == projectId || projectId == null)
                                     && (c.ProviderFlag.Equals(providerParameter) || providerFlag == null)
+                                    && (c.CreationDate >= dtStartDate || startDate == null)
+                                    && (c.CreationDate <= dtEndDate || endDate == null)
                                 );
 
             ViewBag.RecordCount = payments.ToList().Count;

@@ -8,50 +8,39 @@
 @using (Html.BeginForm("Index", "Payments", FormMethod.Get))
 {
     <div style="border-bottom:1px solid #bbb"><h1>Busqueda de Pagos</h1></div>
-    <table style="border:0px; width:800px;">
+
+    <table class="table table-bordered">
+        <tbody>
         <tr>
-            <td>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.FirstOrDefault().Bank)
-                    <div class="editor-field">
-                        @Html.TextBox("bank")
-                    </div>
+                <th scope="row">@Html.LabelFor(model => model.FirstOrDefault().Bank)</th>
+                <td colspan="2">@Html.TextBox("bank")</td>
+                <td><input name="SearchButton" type="submit" value="Buscar" class="btn btn-success" /></td>
+            </tr>
+            <tr>
+                <th scope="row">@Html.LabelFor(model => model.FirstOrDefault().Account)</th>
+                <td>@Html.TextBox("account")</td>
+                <th scope="row">@Html.LabelFor(model => model.FirstOrDefault().PersonCharge)</th>
+                <td>@Html.TextBox("personCharge")</td>
+            </tr>
+            <tr>
+                <th scope="row">@Html.LabelFor(model => model.FirstOrDefault().ProjectId, "Proyecto")</th>
+                <td>@Html.DropDownList("projectId", null, htmlAttributes: new { @class = "form-control" })</td>
+                <th scope="row">@Html.LabelFor(model => model.FirstOrDefault().ProviderFlag)</th>
+                <td>@Html.CheckBox("providerFlag")</td>
+            </tr>
+            <tr>
+                <th scope="row">Fecha Inicio</th>
+                <td><div>
+                        @Html.TextBox("startDate", null, new { @class = "datepicker", @type = "date" })
                 </div>
             </td>
-            <td>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.FirstOrDefault().Account)
-                    <div class="editor-field">
-                        @Html.TextBox("account")
-                    </div>
+                <th scope="row">Fecha Fin</th>
+                <td><div>
+                        @Html.TextBox("endDate", null, new { @class = "datepicker", @type = "date" })                        
                 </div>
-            </td>
-            <td>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.FirstOrDefault().PersonCharge)
-                    <div class="editor-field">
-                        @Html.TextBox("personCharge")
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.FirstOrDefault().ProjectId, "Proyecto", htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div>
-                        @Html.DropDownList("projectId", null, htmlAttributes: new { @class = "form-control" })
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="form-check">
-                    @Html.LabelFor(model => model.FirstOrDefault().ProviderFlag)
-                    @Html.CheckBox("providerFlag")
-                </div>
-            </td>
-            <td style="vertical-align:central;">
-                <input name="SearchButton" type="submit" value="Buscar" class="btn btn-success" />
             </td>
         </tr>        
+        </tbody>
     </table>
 }
 
@@ -165,5 +154,7 @@
        projectId = ViewBag.ProjectSelectedId,
        personCharge = ViewBag.PersonChargeSelected,
        account = ViewBag.AccountSelected,
-       bank = ViewBag.BankSelected
+       bank = ViewBag.BankSelected,
+       startDate = ViewBag.StartDate,
+       endDate = ViewBag.EndDate
    }))
