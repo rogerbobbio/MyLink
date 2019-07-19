@@ -13,16 +13,26 @@ namespace MyLink.Controllers
         public ActionResult Index()
         {
             var list = db.Links.ToList();
+
             List<int> categoriasCount = new List<int>();
             var categorias = list.Select(c => c.LinkCategory.Name).Distinct();
             foreach (var item in categorias)
             {
-                Random rnd = new Random();
                 categoriasCount.Add(list.Count(x => x.LinkCategory.Name == item));
-            }
-            var rep = categoriasCount;
+            }            
             ViewBag.CATEGORIAS = categorias;
             ViewBag.CATEGORIASCOUNT = categoriasCount.ToList();
+
+            List<int> rankingCount = new List<int>();
+            List<string> rankingList = new List<string>();
+            var rankings = list.Select(c => c.Ranking).Distinct();
+            foreach (var item in rankings)
+            {
+                rankingCount.Add(list.Count(x => x.Ranking == item));
+                rankingList.Add("Ranking " + item);
+            }
+            ViewBag.RANKINGS = rankingList;
+            ViewBag.RANKINGSCOUNT = rankingCount.ToList();
 
             var user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
             return View(user);

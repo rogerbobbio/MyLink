@@ -67,17 +67,20 @@
 </div>
 
 <script>
-        var repArray = @Html.Raw(Json.Encode(ViewBag.CATEGORIASCOUNT));
-        var catArray = @Html.Raw(Json.Encode(ViewBag.CATEGORIAS));
+        var categoriasCountArray = @Html.Raw(Json.Encode(ViewBag.CATEGORIASCOUNT));        
+        var categoriasArray = @Html.Raw(Json.Encode(ViewBag.CATEGORIAS));
+
+        var rankingsCountArray = @Html.Raw(Json.Encode(ViewBag.RANKINGSCOUNT));        
+        var rankingsArray = @Html.Raw(Json.Encode(ViewBag.RANKINGS));
 
         var ctx = $("#bar_chart");
         var barChart = new Chart(ctx, {
-            type: 'bar',
+            type: 'horizontalBar',
             data: {
-                labels: catArray,
+                labels: categoriasArray,
                 datasets: [{
                     label: 'Existen',
-                    data: repArray,
+                    data: categoriasCountArray,
                     backgroundColor: [
                         random_rgba(),
                         random_rgba(),
@@ -164,9 +167,9 @@
         var myPieChart = new Chart(ctxPie, {
             type: 'pie',
             data: {
-                labels: catArray,
+                labels: rankingsArray,
                 datasets: [{
-                    data: repArray,
+                    data: rankingsCountArray,
                     backgroundColor: [
                         random_rgba(),
                         random_rgba(),
