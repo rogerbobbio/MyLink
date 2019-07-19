@@ -270,6 +270,8 @@
     </Content>
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Chart.js" />
+    <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\mylink.js" />
     <Content Include="Scripts\fileupload.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

@@ -1,6 +1,20 @@
 ﻿@{
     ViewBag.Title = "System";
 }
+<head>
+    <script src="~/Scripts/Chart.min.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <style>
+        #chart_container {
+            width: 400px;
+            height: 400px;
+            border: 3px solid #add;
+            padding: 1px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
 
     <div class="jumbotron">
         <h1>Main Dashboard</h1>        
@@ -24,6 +38,118 @@
                     </div>                    
                 </div>
             </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-globe"></span>Graficos
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <table>
+                            <tr>
+                                <td>
+                                    <div id="chart_container">
+                                        <canvas id="bar_chart"></canvas>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div id="chart_container">
+                                        <canvas id="pie_chart"></canvas>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
         </div>
     </div>
+</div>    </div>
 </div>
+
+<script>
+        var repArray = @Html.Raw(Json.Encode(ViewBag.CATEGORIASCOUNT));
+        var catArray = @Html.Raw(Json.Encode(ViewBag.CATEGORIAS));
+
+        var ctx = $("#bar_chart");
+        var barChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: catArray,
+                datasets: [{
+                    label: 'Existen',
+                    data: repArray,
+                    backgroundColor: [
+                        random_rgba(),
+                        random_rgba(),
+                        random_rgba(),
+                        random_rgba(),
+                        random_rgba(),
+                        random_rgba()
+                    ],
+                    borderColor: [
+                        random_rgba(),
+                        random_rgba(),
+                        random_rgba(),
+                        random_rgba(),
+                        random_rgba(),
+                        random_rgba()
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                },
+                legend: { display: false },
+            }
+        });
+
+        var ctxPie = $("#pie_chart");
+        var myPieChart = new Chart(ctxPie, {
+            type: 'pie',
+            data: {
+                labels: catArray,
+                datasets: [{
+                    data: repArray,
+                    backgroundColor: [
+                        random_rgba(),
+                        random_rgba(),
+                        random_rgba(),
+                        random_rgba(),
+                        random_rgba(),
+                        random_rgba()
+                    ],
+                    borderColor: [
+                        random_rgba(),
+                        random_rgba(),
+                        random_rgba(),
+                        random_rgba(),
+                        random_rgba(),
+                        random_rgba()
+                    ],
+                    borderWidth: 1
+                }]
+            },
+        });
+
+        function random_rgba() {
+            var o = Math.round, r = Math.random, s = 255;
+            var value1 = o(r() * s);
+            var value2 = o(r() * s);
+            var value3 = o(r() * s);
+            if (value1 == 255 && value2 == 255 && value3 == 255)
+            {
+                var value1 = o(r() * s);
+                var value2 = o(r() * s);
+                var value3 = o(r() * s);
+            }
+            var rgba = 'rgba(' + value1 + ',' + value2 + ',' + value3 + ',' + r().toFixed(1) + ')';
+            return rgba;
+        }
+</script>
